@@ -1,4 +1,4 @@
-import { Container, Card, Row, Text } from "@nextui-org/react";
+import { Container, Text } from "@nextui-org/react";
 import React from "react";
 
 function HeroComponent() {

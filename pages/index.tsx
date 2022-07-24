@@ -1,6 +1,6 @@
+import { useTheme } from "@nextui-org/react";
 import type { NextPage } from "next";
 import { useTheme as useNextTheme } from "next-themes";
-import { Button, Switch, useTheme } from "@nextui-org/react";
 import HeroComponent from "../components/HeroComponent";
 
 const Home: NextPage = () => {
