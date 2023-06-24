@@ -96,23 +96,7 @@ const Navbar: React.FC<Props> = ({isHome, hasNotify, routes}) => {
               },
             }}
           >
-            <Row align="center" justify="flex-start">
 
- 
-              <Spacer x={0.4} />
-              <Badge
-                solid
-                css={{
-                  px: "$4",
-                  "@mdMax": {
-                    display: "none",
-                  },
-                }}
-                type="secondary"
-              >
-                Barbar
-              </Badge>
-            </Row>
           </Col>
 {/*   
           <Col className="navbar__search-container">
