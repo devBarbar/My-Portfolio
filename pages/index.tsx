@@ -1,29 +1,82 @@
-import { useTheme } from "@nextui-org/react";
-import type { NextPage } from "next";
-import { useTheme as useNextTheme } from "next-themes";
-import HeroComponent from "../components/HeroComponent";
+import React from "react";
+import { GetStaticProps } from "next";
+import router, { useRouter } from "next/router";
+import {
+  FeaturesGrid,
+  Hero,
+  Section,
+  Community,
+  InstallBanner,
+  CustomThemesSection,
+  ComparationSection,
+  DarkModeSection,
+  CustomizationSection,
+  BuiltInStitchesSection,
+  LastButNotLeastSection,
+  SupportSection,
+} from "@components";
+import landingContent from "@content/landing";
+import DefaultLayout from "@layouts/default";
+import { getSlug } from "@lib/docs/utils";
+import { Route, getCurrentTag, fetchDocsManifest } from "@lib/docs/page";
+import { Sponsor, getSponsors } from "@lib/docs/sponsors";
+import { Spacer } from "@nextui-org/react";
+import { getId } from "@utils/collections";
 
-const Home: NextPage = () => {
-  const { setTheme } = useNextTheme();
-  const { isDark, type } = useTheme();
+interface Props {
+  routes: Route[];
+  sponsors: Sponsor[];
+  currentRoute: Route;
+}
+
+const IndexPage: React.FC<Props> = ({ routes, sponsors, currentRoute }) => {
+  const { query } = useRouter();
+  const { tag, slug } = getSlug(query);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vw",
-        height: "100vh",
-      }}
+    <DefaultLayout
+      currentRoute={currentRoute}
+      routes={routes}
+      slug={slug}
+      tag={tag}
     >
-      <HeroComponent></HeroComponent>
-      {/* <Switch
-        checked={isDark}
-        onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
-      /> */}
-    </div>
+      {/* Hero */}
+      <Hero />
+      {/* Main features */}
+      <Section>
+        <FeaturesGrid features={landingContent.topFeatures} />
+      </Section>
+      {/*  <CustomThemesSection />
+   <ComparationSection />
+      <DarkModeSection />
+      <CustomizationSection />
+      <BuiltInStitchesSection />
+      <LastButNotLeastSection />
+      <SupportSection sponsors={sponsors} />
+      <Section css={{zIndex: "$10"}}>
+        <Spacer css={{"@xsMax": {mt: "$16"}}} y={6} />
+        <InstallBanner />
+      </Section>
+      <Spacer y={6} />
+      <Section>
+        <Community />
+      </Section>
+      <Spacer y={4} /> */}
+    </DefaultLayout>
   );
 };
 
-export default Home;
+export const getStaticProps: GetStaticProps = async () => {
+  const tag = await getCurrentTag();
+  const manifest = await fetchDocsManifest(tag);
+  const sponsors = await getSponsors();
+
+  return {
+    props: {
+      routes: manifest.routes,
+      sponsors,
+    },
+  };
+};
+
+export default IndexPage;

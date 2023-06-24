@@ -5,13 +5,18 @@ import "../styles/globals.css";
 const lightTheme = createTheme({
   type: "light",
   theme: {
-    colors: {},
+    colors: {
+
+    },
   },
 });
 
 const darkTheme = createTheme({
   type: "dark", // it could be "light" or "dark"
   theme: {
+    colors: {
+
+    },
     space: {},
     fonts: {},
   },
@@ -27,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         dark: darkTheme.className,
       }}
     >
-      <NextUIProvider>
+      <NextUIProvider theme={darkTheme}>
         <Component {...pageProps} />
       </NextUIProvider>
     </NextThemesProvider>
