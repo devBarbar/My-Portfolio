@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({title, description, image, url}) => {
 
   let pageTitle = title ? `${toCapitalize(title)} | ` : "";
 
-  pageTitle += "NextUI - Beautiful, fast and modern React UI Library";
+  pageTitle += "Barbar Ahmad - Fullstack Software Enginner";
 
   return (
     <Head>
